@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+class StudyPlannerScreen extends StatefulWidget{const StudyPlannerScreen({super.key});@override State<StudyPlannerScreen> createState()=>_StudyPlannerScreenState();}
+class _StudyPlannerScreenState extends State<StudyPlannerScreen>{
+ String exam='Exam';double hours=3;List<String> weak=[];List<_Task> tasks=[];bool loading=true;
+ @override void initState(){super.initState();load();}
+ Future<void> load()async{final p=await SharedPreferences.getInstance();exam=p.getString('exam')??'Exam';hours=p.getDouble('daily_hours')??3;weak=p.getStringList('weak_subjects')??[];buildPlan();final done=p.getStringList('today_done')??[];for(final t in tasks){t.done=done.contains(t.id);}if(mounted)setState(()=>loading=false);}
+ void buildPlan(){final total=(hours*60).round(),focus=weak.isEmpty?'Math':weak.first,second=weak.length>1?weak[1]:'Reasoning';final a=(total*.35).round(),b=(total*.25).round(),c=(total*.20).round();tasks=[_Task('focus',focus,'Concept + PYQ',a,Icons.track_changes_rounded),_Task('practice',second,'Timed practice',b,Icons.timer_rounded),_Task('gk','GK / Current Affairs','Exam-focused revision',c,Icons.public_rounded),_Task('review','Mistake Book','Review errors & formulas',total-a-b-c,Icons.replay_rounded)];}
+ Future<void> toggle(_Task t,bool? v)async{setState(()=>t.done=v??false);final p=await SharedPreferences.getInstance();await p.setStringList('today_done',tasks.where((x)=>x.done).map((x)=>x.id).toList());}
+ @override Widget build(BuildContext context){if(loading)return const Center(child:CircularProgressIndicator());final done=tasks.where((e)=>e.done).length;final progress=tasks.isEmpty?0.0:done/tasks.length;return ListView(padding:const EdgeInsets.all(20),children:[
+ Text('Smart Study Plan',style:Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight:FontWeight.w800)),const SizedBox(height:4),Text(exam+' • '+hours.toStringAsFixed(1)+' study hours'),const SizedBox(height:20),
+ Card(child:Padding(padding:const EdgeInsets.all(18),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[const Text("Today's progress",style:TextStyle(fontWeight:FontWeight.w700)),Text(done.toString()+'/'+tasks.length.toString())]),const SizedBox(height:10),LinearProgressIndicator(value:progress,borderRadius:BorderRadius.circular(8)),const SizedBox(height:8),Text(progress==1?'Mission complete. Revise mistakes before ending the day.':'Complete tasks in order. Weak areas get first priority.')] ))),
+ const SizedBox(height:16),...tasks.map((t)=>Padding(padding:const EdgeInsets.only(bottom:10),child:Card(child:CheckboxListTile(value:t.done,onChanged:(v)=>toggle(t,v),secondary:CircleAvatar(child:Icon(t.icon)),title:Text(t.title,style:const TextStyle(fontWeight:FontWeight.w700)),subtitle:Text(t.subtitle+' • '+t.minutes.toString()+' min'),controlAffinity:ListTileControlAffinity.trailing)))),
+ const SizedBox(height:8),OutlinedButton.icon(onPressed:()=>setState(buildPlan),icon:const Icon(Icons.auto_awesome_rounded),label:const Text('Rebuild plan from my profile'))]);}
+}
+class _Task{final String id,title,subtitle;final int minutes;final IconData icon;bool done=false;_Task(this.id,this.title,this.subtitle,this.minutes,this.icon);}
