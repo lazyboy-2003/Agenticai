@@ -5,6 +5,7 @@ import 'preparation_screen.dart';
 import 'mock_test_screen.dart';
 import 'progress_screen.dart';
 import 'current_affairs_screen.dart';
+import 'agent_action_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -74,6 +75,8 @@ class _Dashboard extends StatelessWidget {
           Expanded(child: _Stat(title: 'Study streak', value: '0 days')),
         ]),
         const SizedBox(height: 16),
+        const _AgentBrainLauncher(),
+        const SizedBox(height: 20),
         Text('Preparation Hub', style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
         const SizedBox(height: 12),
         const _MockLauncher(),
@@ -141,3 +144,5 @@ class _PreparationLauncher extends StatelessWidget{const _PreparationLauncher();
 class _MockLauncher extends StatelessWidget{const _MockLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:8),leading:const Icon(Icons.quiz_rounded),title:const Text('Mock Tests & PYQ',style:TextStyle(fontWeight:FontWeight.w700)),subtitle:const Text('Timer • negative marking • solutions'),trailing:const Icon(Icons.chevron_right_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const MockTestScreen()))));}
 
 class _CurrentAffairsLauncher extends StatelessWidget{const _CurrentAffairsLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:8),leading:const Icon(Icons.public_rounded),title:const Text('GK & Current Affairs',style:TextStyle(fontWeight:FontWeight.w700)),subtitle:const Text('Daily revision • save • revise • quiz'),trailing:const Icon(Icons.chevron_right_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const CurrentAffairsScreen()))));}
+
+class _AgentBrainLauncher extends StatelessWidget{const _AgentBrainLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:10),leading:const CircleAvatar(child:Icon(Icons.psychology_alt_rounded)),title:const Text('Ask Agent: What should I do now?',style:TextStyle(fontWeight:FontWeight.w800)),subtitle:const Text('Next action based on your performance and exam date'),trailing:const Icon(Icons.arrow_forward_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const AgentActionScreen()))));}
