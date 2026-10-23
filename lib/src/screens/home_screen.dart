@@ -4,6 +4,7 @@ import 'study_planner_screen.dart';
 import 'preparation_screen.dart';
 import 'mock_test_screen.dart';
 import 'progress_screen.dart';
+import 'current_affairs_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -81,7 +82,7 @@ class _Dashboard extends StatelessWidget {
         const SizedBox(height: 10),
         const _Action(icon: Icons.error_outline_rounded, title: 'Mistake Book', subtitle: 'Turn mistakes into revision targets'),
         const SizedBox(height: 10),
-        const _Action(icon: Icons.public_rounded, title: 'GK & Current Affairs', subtitle: 'Daily exam-focused revision'),
+        const _CurrentAffairsLauncher(),
       ],
     );
   }
@@ -138,3 +139,5 @@ class _Placeholder extends StatelessWidget {
 class _PreparationLauncher extends StatelessWidget{const _PreparationLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:8),leading:const Icon(Icons.school_rounded),title:const Text('Exam Preparation',style:TextStyle(fontWeight:FontWeight.w700)),subtitle:const Text('Subject → chapter → priority → progress'),trailing:const Icon(Icons.chevron_right_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const Scaffold(body:SafeArea(child:PreparationScreen()))))));}
 
 class _MockLauncher extends StatelessWidget{const _MockLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:8),leading:const Icon(Icons.quiz_rounded),title:const Text('Mock Tests & PYQ',style:TextStyle(fontWeight:FontWeight.w700)),subtitle:const Text('Timer • negative marking • solutions'),trailing:const Icon(Icons.chevron_right_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const MockTestScreen()))));}
+
+class _CurrentAffairsLauncher extends StatelessWidget{const _CurrentAffairsLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:8),leading:const Icon(Icons.public_rounded),title:const Text('GK & Current Affairs',style:TextStyle(fontWeight:FontWeight.w700)),subtitle:const Text('Daily revision • save • revise • quiz'),trailing:const Icon(Icons.chevron_right_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const CurrentAffairsScreen()))));}
