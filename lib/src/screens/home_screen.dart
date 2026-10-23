@@ -3,6 +3,7 @@ import 'mentor_screen.dart';
 import 'study_planner_screen.dart';
 import 'preparation_screen.dart';
 import 'mock_test_screen.dart';
+import 'progress_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _Dashboard(),
     const StudyPlannerScreen(),
     const MentorScreen(),
-    _Placeholder(title: 'Progress', icon: Icons.insights_rounded),
+    const ProgressScreen(),
   ];
 
   @override
