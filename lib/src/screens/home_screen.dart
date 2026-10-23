@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'mentor_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,10 +11,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
 
-  static const pages = <Widget>[
+  static final pages = <Widget>[
     _Dashboard(),
     _Placeholder(title: 'Study Plan', icon: Icons.calendar_month_rounded),
-    _Placeholder(title: 'AI Mentor', icon: Icons.auto_awesome_rounded),
+    const MentorScreen(),
     _Placeholder(title: 'Progress', icon: Icons.insights_rounded),
   ];
 
