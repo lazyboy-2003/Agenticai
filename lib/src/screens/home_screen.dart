@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'mentor_screen.dart';
 import 'study_planner_screen.dart';
+import 'preparation_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -74,6 +75,8 @@ class _Dashboard extends StatelessWidget {
         const SizedBox(height: 12),
         const _Action(icon: Icons.quiz_rounded, title: 'Mock Tests & PYQ', subtitle: 'Practice with exam-style questions'),
         const SizedBox(height: 10),
+        const _PreparationLauncher(),
+        const SizedBox(height: 10),
         const _Action(icon: Icons.error_outline_rounded, title: 'Mistake Book', subtitle: 'Turn mistakes into revision targets'),
         const SizedBox(height: 10),
         const _Action(icon: Icons.public_rounded, title: 'GK & Current Affairs', subtitle: 'Daily exam-focused revision'),
@@ -129,3 +132,5 @@ class _Placeholder extends StatelessWidget {
     ]),
   );
 }
+
+class _PreparationLauncher extends StatelessWidget{const _PreparationLauncher();@override Widget build(BuildContext context)=>Card(child:ListTile(contentPadding:const EdgeInsets.symmetric(horizontal:16,vertical:8),leading:const Icon(Icons.school_rounded),title:const Text('Exam Preparation',style:TextStyle(fontWeight:FontWeight.w700)),subtitle:const Text('Subject → chapter → priority → progress'),trailing:const Icon(Icons.chevron_right_rounded),onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const Scaffold(body:SafeArea(child:PreparationScreen()))))));}
