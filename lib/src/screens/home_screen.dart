@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'mentor_screen.dart';
+import 'study_planner_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   static final pages = <Widget>[
     _Dashboard(),
-    _Placeholder(title: 'Study Plan', icon: Icons.calendar_month_rounded),
+    const StudyPlannerScreen(),
     const MentorScreen(),
     _Placeholder(title: 'Progress', icon: Icons.insights_rounded),
   ];
