@@ -1,0 +1,9 @@
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+class MistakeBookScreen extends StatefulWidget{const MistakeBookScreen({super.key});@override State<MistakeBookScreen> createState()=>_MistakeBookScreenState();}
+class _MistakeBookScreenState extends State<MistakeBookScreen>{List<Map<String,dynamic>> items=[];bool loading=true;
+ @override void initState(){super.initState();load();}
+ Future<void> load()async{final p=await SharedPreferences.getInstance();final raw=p.getStringList('mistake_book')??[];items=raw.map((x)=>Map<String,dynamic>.from(jsonDecode(x))).toList();if(mounted)setState(()=>loading=false);}
+ Future<void> clear()async{final p=await SharedPreferences.getInstance();await p.remove('mistake_book');setState(()=>items=[]);}
+ @override Widget build(BuildContext context)=>Scaffold(appBar:AppBar(title:const Text('Mistake Book V2'),actions:[if(items.isNotEmpty)IconButton(onPressed:clear,icon:const Icon(Icons.delete_sweep_rounded))]),body:loading?const Center(child:CircularProgressIndicator()):items.isEmpty?const Center(child:Padding(padding:EdgeInsets.all(24),child:Text('No revision targets yet. Complete an adaptive mock and your wrong/skipped questions will appear here.',textAlign:TextAlign.center))):ListView.builder(padding:const EdgeInsets.all(16),itemCount:items.length,itemBuilder:(c,i){final x=items[i];return Card(child:ExpansionTile(leading:CircleAvatar(child:Text((x['subject']??'?').toString().substring(0,1))),title:Text(x['question']??''),subtitle:Text((x['subject']??'')+' • Your answer: '+(x['selected']??'')),children:[Padding(padding:const EdgeInsets.fromLTRB(16,0,16,16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text('Correct: '+(x['answer']??''),style:const TextStyle(fontWeight:FontWeight.w700)),const SizedBox(height:8),Text(x['solution']??'')]))]));}));}
