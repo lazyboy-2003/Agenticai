@@ -34,3 +34,10 @@ flutter run
 ```
 
 > Step 1 intentionally keeps the app lightweight. Platform scaffolding can be generated with `flutter create . --platforms=android` before the first Android build.
+
+
+## V3 Online AI (in review)
+- Gemini-powered online mentor and live web-grounded current affairs.
+- Google Search grounding is enabled for requests marked as live-web queries.
+- Configure a personal Gemini API key in Online AI Setup. Internet access is required; quotas and pricing depend on Google's current terms.
+- Android CI runs for pushes to `main` and `v3-online-agenticai` and for pull requests targeting `main`.
